@@ -2,12 +2,8 @@
 <html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Botes Loterías & ONCE España</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botes Loterías España - SELAE y ONCE</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,891 +13,597 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0f9ff',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            900: '#0c4a6e',
-                        },
-                        selae: '#005ea6',
-                        once: '#008744',
-                    },
-                    fontSize: {
-                        'fluid-hero': 'clamp(1.75rem, 5vw, 3rem)',
-                        'fluid-title': 'clamp(1.1rem, 3.5vw, 1.5rem)',
+                            selae: '#005CA9',
+                            once: '#008744',
+                            accent: '#F59E0B'
+                        }
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Styles -->
     <style>
-        * {
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            touch-action: manipulation;
+            font-family: 'Inter', sans-serif;
         }
-        /* Glassmorphism mobile optimized */
         .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .light .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-        /* Hide scrollbars for crisp app feel */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        /* Safe Area Padding for notch iPhones */
-        .pb-safe {
-            padding-bottom: env(safe-area-inset-bottom, 1rem);
-        }
-        .pt-safe {
-            padding-top: env(safe-area-inset-top, 0.5rem);
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col pb-24 md:pb-8 transition-colors duration-200">
+<body class="bg-slate-900 text-slate-100 min-h-screen pb-24 md:pb-12 transition-colors duration-200 light:bg-slate-50 light:text-slate-800" id="bodyApp">
 
-    <!-- Toast Notification Container -->
-    <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-sm pointer-events-none"></div>
-
-    <!-- App Header Bar -->
-    <header class="sticky top-0 z-30 bg-slate-900/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 pt-safe px-4 py-3">
-        <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
-            
-            <!-- Logo & Brand -->
-            <div class="flex items-center gap-2.5 cursor-pointer" onclick="resetApp()">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-500 to-sky-500 flex items-center justify-center shadow-lg shadow-amber-500/10 shrink-0">
-                    <i class="fa-solid fa-clover text-slate-950 text-xl font-black"></i>
+    <!-- Header / Navbar Principal -->
+    <header class="sticky top-0 z-30 bg-slate-900/90 light:bg-white/90 backdrop-blur-md border-b border-slate-800 light:border-slate-200 px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-900 font-bold shadow-lg shadow-amber-500/20">
+                    <i data-lucide="clover" class="w-6 h-6"></i>
                 </div>
                 <div>
-                    <h1 class="text-base font-black tracking-tight text-white dark:text-white flex items-center gap-1.5 leading-none">
-                        BotesEspaña
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    </h1>
-                    <p class="text-[11px] text-slate-400 font-medium">SELAE & ONCE en vivo</p>
+                    <h1 class="font-bold text-lg leading-tight text-white light:text-slate-900">Botes Loterías</h1>
+                    <p class="text-xs text-slate-400 light:text-slate-500">España (SELAE y ONCE)</p>
                 </div>
             </div>
 
-            <!-- Header Quick Actions -->
+            <!-- Acciones Top (Escritorio / Tablet) -->
             <div class="flex items-center gap-2">
-                <!-- Theme Toggle -->
-                <button onclick="toggleTheme()" class="w-11 h-11 min-h-[44px] min-w-[44px] rounded-2xl bg-slate-800 dark:bg-slate-800 hover:bg-slate-700 text-amber-400 flex items-center justify-center text-lg transition-all active:scale-95 border border-slate-700/60" aria-label="Cambiar tema">
-                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                <button id="btnTaxDesktop" onclick="openTaxModal()" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 border border-amber-500/30 text-sm font-medium transition-all">
+                    <i data-lucide="calculator" class="w-4 h-4"></i>
+                    <span>Calculadora Hacienda</span>
                 </button>
-                
-                <!-- Quick Refresh -->
-                <button onclick="refreshData()" class="w-11 h-11 min-h-[44px] min-w-[44px] rounded-2xl bg-slate-800 dark:bg-slate-800 hover:bg-slate-700 text-sky-400 flex items-center justify-center text-lg transition-all active:scale-95 border border-slate-700/60" aria-label="Actualizar datos">
-                    <i id="refreshIcon" class="fa-solid fa-arrows-rotate"></i>
-                </button>
-            </div>
-        </div>
 
-        <!-- Search Bar on Mobile -->
-        <div class="max-w-5xl mx-auto mt-2.5">
-            <div class="relative w-full">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                <input type="text" id="searchInput" oninput="renderCards()" placeholder="Buscar sorteo o premio..." class="w-full pl-9 pr-8 py-2.5 text-xs font-medium bg-slate-950/80 dark:bg-slate-950/80 border border-slate-700/80 rounded-2xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors h-11">
-                <button id="clearSearch" onclick="clearSearchInput()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-circle-xmark"></i>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-800 light:bg-slate-100 text-slate-300 light:text-slate-600 hover:text-white light:hover:text-slate-900 transition-colors">
+                    <i data-lucide="moon" id="themeIconDark" class="w-5 h-5 hidden"></i>
+                    <i data-lucide="sun" id="themeIconLight" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Mobile Content Area -->
-    <main class="flex-grow max-w-5xl w-full mx-auto px-3 sm:px-6 pt-4 space-y-4">
-
-        <!-- Featured Jackpot Banner (Hero Mobile) -->
-        <section id="heroBanner" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-950/80 via-slate-900 to-slate-950 border border-amber-500/30 p-4 sm:p-6 shadow-xl">
-            <div class="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-            
-            <div class="relative z-10 flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[11px] font-extrabold border border-amber-500/30">
-                        <i class="fa-solid fa-fire text-amber-400"></i> BOTE MÁXIMO HOY
-                    </span>
-                    <span id="heroTypeBadge" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">SELAE</span>
-                </div>
-
-                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-                    <div>
-                        <h2 id="heroTitle" class="text-2xl sm:text-3xl font-black text-white tracking-tight">Euromillones</h2>
-                        <p class="text-xs text-slate-300 mt-0.5"><i class="fa-regular fa-calendar-check text-amber-400 mr-1"></i> Próximo: <span id="heroDate" class="font-bold text-white">Viernes 20:30h</span></p>
-                    </div>
-
-                    <div class="bg-slate-950/70 backdrop-blur-md p-3.5 rounded-2xl border border-amber-500/20 text-right self-start sm:self-auto min-w-[180px]">
-                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">Acumulado</span>
-                        <div id="heroAmount" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500">
-                            49.000.000 €
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Countdown Bar -->
-                <div class="flex items-center justify-between bg-slate-900/90 px-3.5 py-2 rounded-xl border border-slate-800 text-xs font-mono text-slate-300">
-                    <span class="text-[11px] text-slate-400 font-sans font-semibold">Tiempo restante:</span>
-                    <div class="flex items-center gap-1.5 font-bold text-amber-400">
-                        <i class="fa-regular fa-clock"></i>
-                        <span id="heroCountdown">Calculando...</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Desktop Navigation Tabs (Hidden on Mobile, Visible on MD+) -->
-        <div class="hidden md:flex items-center justify-between bg-slate-900/80 p-2 rounded-2xl border border-slate-800">
-            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                <button onclick="setFilter('all')" id="dt-filter-all" class="filter-dt-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950">Todos</button>
-                <button onclick="setFilter('selae')" id="dt-filter-selae" class="filter-dt-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800">Loterías Estado</button>
-                <button onclick="setFilter('once')" id="dt-filter-once" class="filter-dt-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800">ONCE</button>
-                <button onclick="setFilter('fav')" id="dt-filter-fav" class="filter-dt-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800">Favoritos (<span class="favCount">0</span>)</button>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="openModal('generatorModal')" class="px-3 py-2 rounded-xl bg-slate-800 text-amber-400 text-xs font-bold hover:bg-slate-700 transition-all flex items-center gap-1.5">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generator
+    <!-- Subheader / Filtros Rápidos -->
+    <main class="max-w-6xl mx-auto px-4 pt-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <!-- Selector de Filtro -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+                <button onclick="setFilter('all')" id="filter-all" class="filter-btn active px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap bg-amber-500 text-slate-950 font-semibold shadow-md shadow-amber-500/20">
+                    Todos los Botes
                 </button>
-                <button onclick="openModal('taxModal')" class="px-3 py-2 rounded-xl bg-slate-800 text-sky-400 text-xs font-bold hover:bg-slate-700 transition-all flex items-center gap-1.5">
-                    <i class="fa-solid fa-calculator"></i> Calculadora
+                <button onclick="setFilter('selae')" id="filter-selae" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    SELAE
+                </button>
+                <button onclick="setFilter('once')" id="filter-once" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700">
+                    ONCE
+                </button>
+                <button onclick="setFilter('favs')" id="filter-favs" class="filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700 flex items-center gap-1.5">
+                    <i data-lucide="star" class="w-4 h-4 fill-amber-400 text-amber-400"></i>
+                    <span>Favoritos</span>
                 </button>
             </div>
-        </div>
 
-        <!-- Section Title Bar -->
-        <div class="flex items-center justify-between px-1">
-            <h3 id="sectionTitle" class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-amber-400"></span> Todos los sorteos
-            </h3>
-            <span id="resultCounter" class="text-xs text-slate-500 font-semibold">11 sorteos</span>
-        </div>
-
-        <!-- Dynamic Grid of Cards -->
-        <section id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            <!-- Generated dynamically -->
-        </section>
-
-        <!-- Empty State -->
-        <div id="emptyState" class="hidden text-center py-12 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800 p-6">
-            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-3 text-slate-500 text-xl">
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <!-- Resumen Informativo -->
+            <div class="text-xs text-slate-400 light:text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin text-amber-400"></i>
+                <span>Última actualización: Hoy</span>
             </div>
-            <h4 class="text-base font-bold text-slate-300">No se encontraron sorteos</h4>
-            <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">Prueba con otro término de búsqueda o cambia la pestaña seleccionada.</p>
-            <button onclick="resetApp()" class="mt-4 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-bold">Ver todos los sorteos</button>
         </div>
 
+        <!-- Grid de Sorteos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="drawsGrid">
+            <!-- Generado dinámicamente -->
+        </div>
     </main>
 
-    <!-- MOBILE BOTTOM NAVIGATION BAR (Fixed Touch Bar) -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 pt-2 pb-safe shadow-2xl">
-        <div class="grid grid-cols-5 items-center max-w-md mx-auto">
-            
-            <button onclick="setFilter('all')" id="nav-all" class="nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-amber-400 font-bold transition-all">
-                <i class="fa-solid fa-border-all text-lg mb-1"></i>
-                <span class="text-[10px] font-medium">Todos</span>
+    <!-- Bottom Navigation Bar (Móvil) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 light:bg-white/95 backdrop-blur-md border-t border-slate-800 light:border-slate-200 px-6 py-2 z-40">
+        <div class="flex items-center justify-around">
+            <button onclick="setFilter('all')" class="flex flex-col items-center gap-1 text-amber-400">
+                <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                <span class="text-[10px] font-medium">Botes</span>
             </button>
-
-            <button onclick="setFilter('selae')" id="nav-selae" class="nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-slate-400 hover:text-slate-200 transition-all">
-                <i class="fa-solid fa-shield-halved text-lg mb-1"></i>
-                <span class="text-[10px] font-medium">SELAE</span>
+            <button onclick="openTaxModal()" class="flex flex-col items-center gap-1 text-slate-400 light:text-slate-500 hover:text-amber-400">
+                <div class="p-2 -mt-5 bg-gradient-to-tr from-amber-500 to-amber-300 rounded-full text-slate-950 shadow-lg shadow-amber-500/30 border-2 border-slate-900 light:border-white">
+                    <i data-lucide="calculator" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-medium text-amber-400">Impuestos</span>
             </button>
-
-            <button onclick="setFilter('once')" id="nav-once" class="nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-slate-400 hover:text-slate-200 transition-all">
-                <i class="fa-solid fa-sun text-lg mb-1"></i>
-                <span class="text-[10px] font-medium">ONCE</span>
-            </button>
-
-            <button onclick="openModal('taxModal')" class="nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-slate-400 hover:text-slate-200 transition-all">
-                <i class="fa-solid fa-calculator text-lg mb-1"></i>
-                <span class="text-[10px] font-medium">Hacienda</span>
-            </button>
-
-            <button onclick="setFilter('fav')" id="nav-fav" class="nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-slate-400 hover:text-slate-200 relative transition-all">
-                <i class="fa-solid fa-star text-lg mb-1"></i>
+            <button onclick="setFilter('favs')" class="flex flex-col items-center gap-1 text-slate-400 light:text-slate-500 hover:text-amber-400">
+                <i data-lucide="star" class="w-5 h-5"></i>
                 <span class="text-[10px] font-medium">Favoritos</span>
-                <span id="navFavBadge" class="hidden absolute top-1 right-3 w-4 h-4 rounded-full bg-amber-500 text-slate-950 font-black text-[9px] items-center justify-center">0</span>
             </button>
-
         </div>
     </nav>
 
-    <!-- MODAL: CALCULADORA DE HACIENDA -->
-    <div id="taxModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm hidden">
-        <div class="bg-slate-900 border border-slate-700/80 w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl relative animate-in slide-in-from-bottom duration-200">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg font-bold">
-                        <i class="fa-solid fa-calculator"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Calculadora Fiscal</h3>
-                        <p class="text-[11px] text-slate-400">Impuestos de loterías en España</p>
-                    </div>
-                </div>
-                <button onclick="closeModal('taxModal')" class="w-10 h-10 min-h-[40px] rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Modal Content -->
-            <div class="space-y-4 pt-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Premio Bruto Ganado (€)</label>
-                    <div class="relative">
-                        <input type="number" id="taxInputAmount" value="1000000" min="0" step="1000" oninput="calculateTax()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3 text-xl font-black text-white focus:outline-none focus:border-sky-500 h-12">
-                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 font-extrabold">€</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80 text-[11px]">
-                    <div class="p-2 bg-slate-900 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block mb-0.5">Mínimo Exento:</span>
-                        <strong class="text-emerald-400 text-xs font-extrabold">40.000 € (0%)</strong>
-                    </div>
-                    <div class="p-2 bg-slate-900 rounded-xl border border-slate-800">
-                        <span class="text-slate-400 block mb-0.5">Retención IRPF:</span>
-                        <strong class="text-amber-400 text-xs font-extrabold">20% al sobrante</strong>
-                    </div>
-                </div>
-
-                <div class="space-y-2 bg-slate-950/80 p-4 rounded-2xl border border-slate-800/90 text-xs">
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Parte Exenta:</span>
-                        <span id="taxExempt" class="text-slate-200 font-bold">40.000 €</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Base Imponible Tributable:</span>
-                        <span id="taxBase" class="text-slate-200 font-bold">960.000 €</span>
-                    </div>
-                    <div class="flex justify-between items-center text-rose-400 pt-2 border-t border-slate-800">
-                        <span class="font-semibold">Retención Hacienda (20%):</span>
-                        <span id="taxAmount" class="font-black">- 192.000 €</span>
-                    </div>
-                    <div class="flex justify-between items-center text-emerald-400 text-base font-black pt-2 border-t border-slate-800">
-                        <span>Premio Neto Limpio:</span>
-                        <span id="taxNet">808.000 €</span>
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="closeModal('taxModal')" class="w-full mt-4 py-3 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition-colors min-h-[48px]">
-                Entendido
+    <!-- MODAL: Generador de Números de la Suerte -->
+    <div id="generatorModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 light:bg-white border border-slate-800 light:border-slate-200 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+            <button onclick="closeGeneratorModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white light:hover:text-slate-900">
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-        </div>
-    </div>
-
-    <!-- MODAL: GENERADOR DE COMBINACIÓN -->
-    <div id="generatorModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm hidden">
-        <div class="bg-slate-900 border border-slate-700/80 w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl relative animate-in slide-in-from-bottom duration-200">
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg font-bold">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Generador de Suerte</h3>
-                        <p class="text-[11px] text-slate-400">Números aleatorios para tu apuesta</p>
-                    </div>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </div>
-                <button onclick="closeModal('generatorModal')" class="w-10 h-10 min-h-[40px] rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+                <div>
+                    <h3 class="text-lg font-bold text-white light:text-slate-900" id="genTitle">Números de la Suerte</h3>
+                    <p class="text-xs text-slate-400 light:text-slate-500" id="genSubtitle">Generación aleatoria para tu apuesta</p>
+                </div>
+            </div>
+
+            <div id="genResultContainer" class="my-6 p-4 rounded-xl bg-slate-800/50 light:bg-slate-100 flex flex-wrap justify-center gap-2 min-h-[80px] items-center">
+                <!-- Se llenará dinámicamente -->
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="generateNumbers()" class="flex-1 py-3 px-4 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    <span>Generar Otro</span>
                 </button>
             </div>
+        </div>
+    </div>
 
-            <!-- Modal Content -->
-            <div class="space-y-4 pt-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Selecciona Sorteo</label>
-                    <select id="genLotterySelect" onchange="generateRandomNumbers()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl px-3 py-3 text-xs font-semibold text-slate-200 focus:outline-none focus:border-amber-500 h-12">
-                        <option value="euromillones">Euromillones (5 Números + 2 Estrellas)</option>
-                        <option value="primitiva">La Primitiva / Bonoloto (6 Números + Reintegro)</option>
-                        <option value="gordo">El Gordo de la Primitiva (5 Números + Clave)</option>
-                        <option value="eurojackpot">Eurojackpot ONCE (5 Números + 2 Soles)</option>
-                    </select>
+    <!-- MODAL: Calculadora de Hacienda -->
+    <div id="taxModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 light:bg-white border border-slate-800 light:border-slate-200 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
+            <button onclick="closeTaxModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white light:hover:text-slate-900">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                    <i data-lucide="calculator" class="w-6 h-6"></i>
                 </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white light:text-slate-900">Calculadora de Hacienda</h3>
+                    <p class="text-xs text-slate-400 light:text-slate-500">Impuestos de Loterías en España (20%)</p>
+                </div>
+            </div>
 
-                <!-- Display Combinations -->
-                <div class="bg-slate-950/90 rounded-2xl p-4 border border-slate-800/90 text-center min-h-[100px] flex items-center justify-center">
-                    <div id="genResultBalls" class="flex flex-wrap items-center justify-center gap-2">
-                        <!-- Balls render here -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 light:text-slate-600 mb-1.5">Premio Total (€)</label>
+                    <div class="relative">
+                        <input type="number" id="taxInputAmount" placeholder="Ej: 17000000" class="w-full bg-slate-800 light:bg-slate-100 border border-slate-700 light:border-slate-300 rounded-xl px-4 py-2.5 text-white light:text-slate-900 focus:outline-none focus:border-amber-500 font-bold text-lg">
+                        <span class="absolute right-4 top-3 text-slate-400 font-semibold">€</span>
                     </div>
                 </div>
 
-                <div class="flex gap-2">
-                    <button onclick="generateRandomNumbers()" class="flex-1 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition-colors flex items-center justify-center gap-2 min-h-[48px]">
-                        <i class="fa-solid fa-dice"></i> Nueva Combinación
-                    </button>
-                    <button onclick="copyGeneratedNumbers()" class="py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors flex items-center justify-center gap-2 min-h-[48px]">
-                        <i class="fa-regular fa-copy"></i> Copiar
-                    </button>
+                <!-- Botones de acceso rápido -->
+                <div class="flex gap-2 overflow-x-auto pb-1 text-xs">
+                    <button onclick="setTaxPreset(40000)" class="px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 hover:bg-slate-700 text-slate-300 light:text-slate-700">40.000€</button>
+                    <button onclick="setTaxPreset(100000)" class="px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 hover:bg-slate-700 text-slate-300 light:text-slate-700">100.000€</button>
+                    <button onclick="setTaxPreset(1000000)" class="px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 hover:bg-slate-700 text-slate-300 light:text-slate-700">1 Millón€</button>
+                    <button onclick="setTaxPreset(15000000)" class="px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 hover:bg-slate-700 text-slate-300 light:text-slate-700">15 Millones€</button>
                 </div>
+
+                <!-- Desglose de Resultados -->
+                <div class="p-4 rounded-xl bg-slate-800/60 light:bg-slate-100 space-y-2 text-sm border border-slate-700/50 light:border-slate-200">
+                    <div class="flex justify-between text-slate-400 light:text-slate-600">
+                        <span>Exento de impuestos:</span>
+                        <span class="font-medium text-slate-200 light:text-slate-800">40.000 €</span>
+                    </div>
+                    <div class="flex justify-between text-slate-400 light:text-slate-600">
+                        <span>Base imponible (20%):</span>
+                        <span class="font-medium text-slate-200 light:text-slate-800" id="taxableAmount">0 €</span>
+                    </div>
+                    <div class="flex justify-between text-rose-400 font-medium">
+                        <span>Retención Hacienda (20%):</span>
+                        <span id="taxRetained">- 0 €</span>
+                    </div>
+                    <div class="border-t border-slate-700 light:border-slate-300 pt-2 flex justify-between items-center text-base font-bold text-emerald-400 light:text-emerald-600">
+                        <span>Premio Neto Limpio:</span>
+                        <span id="taxNetTotal" class="text-lg">0 €</span>
+                    </div>
+                </div>
+
+                <p class="text-[11px] text-slate-400 light:text-slate-500 italic leading-snug">
+                    * Los primeros 40.000 € están exentos de tributación. El 20% de IRPF se aplica únicamente sobre la cantidad excedente de los 40.000 €.
+                </p>
             </div>
         </div>
     </div>
 
-    <!-- Application Script -->
+    <!-- Scripts de la Aplicación -->
     <script>
-        // DATA SET: Official españolas Lotteries (Updated Status)
-        const rawLotteries = [
+        // Listado de sorteos (SELAE y ONCE) - Mi Día eliminado de la ONCE
+        const DRAWS_DATA = [
             {
                 id: 'euromillones',
-                name: 'Euromillones',
-                type: 'selae',
-                badgeText: 'Martes / Viernes',
-                jackpotNumeric: 49000000,
-                jackpotDisplay: '49.000.000 €',
-                drawSchedule: 'Viernes 20:30h',
-                nextDrawDayIndex: 5,
-                drawHours: 20,
-                drawMinutes: 30,
-                icon: 'fa-regular fa-star',
-                colorClass: 'from-blue-600 to-indigo-900'
+                name: 'EuroMillones',
+                org: 'selae',
+                jackpot: '130.000.000 €',
+                rawJackpot: 130000000,
+                date: 'Viernes, 20:45h',
+                badge: 'Gran Bote Especial',
+                color: 'from-blue-600 to-indigo-800',
+                pickMain: 5,
+                maxMain: 50,
+                pickExtra: 2,
+                maxExtra: 12,
+                extraLabel: 'Estrellas'
             },
             {
                 id: 'primitiva',
                 name: 'La Primitiva',
-                type: 'selae',
-                badgeText: 'Jueves / Sábado',
-                jackpotNumeric: 36500000,
-                jackpotDisplay: '36.500.000 €',
-                drawSchedule: 'Jueves 21:15h',
-                nextDrawDayIndex: 4,
-                drawHours: 21,
-                drawMinutes: 15,
-                icon: 'fa-solid fa-crown',
-                colorClass: 'from-amber-600 to-yellow-900'
-            },
-            {
-                id: 'gordo-primitiva',
-                name: 'El Gordo de la Primitiva',
-                type: 'selae',
-                badgeText: 'Domingos',
-                jackpotNumeric: 19300000,
-                jackpotDisplay: '19.300.000 €',
-                drawSchedule: 'Domingo 21:15h',
-                nextDrawDayIndex: 0,
-                drawHours: 21,
-                drawMinutes: 15,
-                icon: 'fa-solid fa-gem',
-                colorClass: 'from-purple-600 to-purple-950'
+                org: 'selae',
+                jackpot: '34.500.000 €',
+                rawJackpot: 34500000,
+                date: 'Jueves y Sábados',
+                badge: 'Acumulado',
+                color: 'from-emerald-600 to-teal-800',
+                pickMain: 6,
+                maxMain: 49,
+                pickExtra: 1,
+                maxExtra: 9,
+                extraLabel: 'Reintegro'
             },
             {
                 id: 'eurojackpot',
-                name: 'Eurojackpot ONCE',
-                type: 'once',
-                badgeText: 'Martes / Viernes',
-                jackpotNumeric: 10000000,
-                jackpotDisplay: '10.000.000 €',
-                drawSchedule: 'Viernes 20:00h',
-                nextDrawDayIndex: 5,
-                drawHours: 20,
-                drawMinutes: 0,
-                icon: 'fa-solid fa-globe',
-                colorClass: 'from-emerald-600 to-teal-900'
+                name: 'Eurojackpot',
+                org: 'once',
+                jackpot: '22.000.000 €',
+                rawJackpot: 22000000,
+                date: 'Martes y Viernes',
+                badge: 'Bote ONCE',
+                color: 'from-amber-600 to-yellow-700',
+                pickMain: 5,
+                maxMain: 50,
+                pickExtra: 2,
+                maxExtra: 12,
+                extraLabel: 'Soles'
+            },
+            {
+                id: 'gordo',
+                name: 'El Gordo de la Primitiva',
+                org: 'selae',
+                jackpot: '17.200.000 €',
+                rawJackpot: 17200000,
+                date: 'Domingos',
+                badge: 'Solemne',
+                color: 'from-red-600 to-rose-800',
+                pickMain: 5,
+                maxMain: 54,
+                pickExtra: 1,
+                maxExtra: 9,
+                extraLabel: 'Clave'
             },
             {
                 id: 'eurodreams',
                 name: 'EuroDreams',
-                type: 'selae',
-                badgeText: 'Lunes / Jueves',
-                jackpotNumeric: 7200000,
-                jackpotDisplay: '20.000 €/mes',
-                jackpotSubtext: 'Durante 30 años (7,2 Mill. € total)',
-                drawSchedule: 'Jueves 21:00h',
-                nextDrawDayIndex: 4,
-                drawHours: 21,
-                drawMinutes: 0,
-                icon: 'fa-solid fa-cloud-sun',
-                colorClass: 'from-cyan-600 to-slate-900'
+                org: 'selae',
+                jackpot: '20.000 € / mes (30 años)',
+                rawJackpot: 7200000,
+                date: 'Lunes y Jueves',
+                badge: 'Sueldo para toda la vida',
+                color: 'from-purple-600 to-indigo-900',
+                pickMain: 6,
+                maxMain: 40,
+                pickExtra: 1,
+                maxExtra: 5,
+                extraLabel: 'Dream'
             },
             {
-                id: 'cuponazo-once',
+                id: 'cuponazo',
                 name: 'Cuponazo ONCE',
-                type: 'once',
-                badgeText: 'Viernes',
-                jackpotNumeric: 6000000,
-                jackpotDisplay: '6.000.000 €',
-                drawSchedule: 'Viernes 21:25h',
-                nextDrawDayIndex: 5,
-                drawHours: 21,
-                drawMinutes: 25,
-                icon: 'fa-solid fa-award',
-                colorClass: 'from-yellow-600 to-amber-900'
+                org: 'once',
+                jackpot: '6.000.000 €',
+                rawJackpot: 6000000,
+                date: 'Viernes',
+                badge: 'Premio Mayor',
+                color: 'from-emerald-700 to-green-900',
+                pickMain: 5,
+                maxMain: 9,
+                isDigits: true
             },
             {
-                id: 'sueldazo-once',
-                name: 'Sueldazo ONCE',
-                type: 'once',
-                badgeText: 'Sábados / Domingos',
-                jackpotNumeric: 1500000,
-                jackpotDisplay: '5.000 €/mes',
-                jackpotSubtext: 'Durante 20 años + 300.000 € al contado',
-                drawSchedule: 'Sábado 21:25h',
-                nextDrawDayIndex: 6,
-                drawHours: 21,
-                drawMinutes: 25,
-                icon: 'fa-solid fa-hand-holding-dollar',
-                colorClass: 'from-green-600 to-emerald-950'
+                id: 'sueldazo',
+                name: 'Sueldazo Fin de Semana',
+                org: 'once',
+                jackpot: '5.000 €/mes (20 años) + 300.000€',
+                rawJackpot: 1500000,
+                date: 'Sábados y Domingos',
+                badge: 'Fin de Semana',
+                color: 'from-teal-600 to-emerald-800',
+                pickMain: 5,
+                maxMain: 9,
+                isDigits: true
             },
             {
                 id: 'bonoloto',
-                name: 'Bonoloto',
-                type: 'selae',
-                badgeText: 'Diario',
-                jackpotNumeric: 800000,
-                jackpotDisplay: '800.000 €',
-                drawSchedule: 'Diario 21:30h',
-                nextDrawDayIndex: 4,
-                drawHours: 21,
-                drawMinutes: 30,
-                icon: 'fa-solid fa-clover',
-                colorClass: 'from-sky-600 to-blue-950'
+                name: 'BonoLoto',
+                org: 'selae',
+                jackpot: '2.800.000 €',
+                rawJackpot: 2800000,
+                date: 'Diario (Lunes a Domingo)',
+                badge: 'Diario',
+                color: 'from-cyan-600 to-blue-800',
+                pickMain: 6,
+                maxMain: 49,
+                pickExtra: 1,
+                maxExtra: 9,
+                extraLabel: 'Reintegro'
             },
             {
-                id: 'cupon-diario-once',
+                id: 'cupon-diario',
                 name: 'Cupón Diario ONCE',
-                type: 'once',
-                badgeText: 'Lunes a Jueves',
-                jackpotNumeric: 500000,
-                jackpotDisplay: '500.000 €',
-                drawSchedule: 'Hoy 21:25h',
-                nextDrawDayIndex: 4,
-                drawHours: 21,
-                drawMinutes: 25,
-                icon: 'fa-solid fa-calendar-day',
-                colorClass: 'from-teal-600 to-slate-900'
+                org: 'once',
+                jackpot: '500.000 €',
+                rawJackpot: 500000,
+                date: 'Lunes a Jueves',
+                badge: 'Diario',
+                color: 'from-green-600 to-emerald-800',
+                pickMain: 5,
+                maxMain: 9,
+                isDigits: true
             },
             {
                 id: 'loteria-nacional',
                 name: 'Lotería Nacional',
-                type: 'selae',
-                badgeText: 'Jueves / Sábados',
-                jackpotNumeric: 300000,
-                jackpotDisplay: '300.000 €',
-                jackpotSubtext: 'Por décimo agraciado (3M€/serie)',
-                drawSchedule: 'Sábado 13:00h',
-                nextDrawDayIndex: 6,
-                drawHours: 13,
-                drawMinutes: 0,
-                icon: 'fa-solid fa-ticket',
-                colorClass: 'from-indigo-600 to-slate-950'
-            },
-            {
-                id: 'mi-dia-once',
-                name: 'Mi Día ONCE',
-                type: 'once',
-                badgeText: 'Sorteo Diario',
-                jackpotNumeric: 10000,
-                jackpotDisplay: 'Premio Mayor',
-                jackpotSubtext: 'Según combinación de fecha',
-                drawSchedule: 'Diario 21:25h',
-                nextDrawDayIndex: 4,
-                drawHours: 21,
-                drawMinutes: 25,
-                icon: 'fa-solid fa-heart',
-                colorClass: 'from-rose-600 to-slate-950'
+                org: 'selae',
+                jackpot: '15.000.000 € (Sorteo Especial)',
+                rawJackpot: 15000000,
+                date: 'Jueves y Sábados',
+                badge: 'Especial',
+                color: 'from-sky-600 to-blue-900',
+                pickMain: 5,
+                maxMain: 9,
+                isDigits: true
             }
         ];
 
-        // State Variables
-        let lotteries = [...rawLotteries];
-        let favorites = JSON.parse(localStorage.getItem('fav_botes_spain_v3') || '[]');
+        // Estado Global
+        let favorites = JSON.parse(localStorage.getItem('fav_draws') || '[]');
         let currentFilter = 'all';
+        let activeDrawForGen = null;
 
-        // Date Countdown Helper
-        function getNextDrawDate(targetDay, hours, minutes) {
-            const now = new Date();
-            let target = new Date();
-            target.setHours(hours, minutes, 0, 0);
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDraws();
+            initTaxCalculator();
+            lucide.createIcons();
+        });
 
-            let addDays = (targetDay - now.getDay() + 7) % 7;
-            if (addDays === 0 && now > target) {
-                addDays = 7;
-            }
-            target.setDate(now.getDate() + addDays);
-            return target;
-        }
+        // Alternar modo oscuro / claro
+        function toggleDarkMode() {
+            const body = document.getElementById('bodyApp');
+            const iconDark = document.getElementById('themeIconDark');
+            const iconLight = document.getElementById('themeIconLight');
 
-        // Show Mobile Toast
-        function showToast(msg, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            
-            let icon = 'fa-circle-info text-amber-400';
-            if (type === 'success') icon = 'fa-circle-check text-emerald-400';
-
-            toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900/95 border border-slate-700 text-xs font-bold text-white shadow-2xl pointer-events-auto transform translate-y-2 opacity-0 transition-all duration-200`;
-            toast.innerHTML = `<i class="fa-solid ${icon} text-sm"></i> ${msg}`;
-
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0', '-translate-y-2');
-                setTimeout(() => toast.remove(), 200);
-            }, 2500);
-        }
-
-        // Toggle Favorites
-        function toggleFavorite(id, e) {
-            if (e) e.stopPropagation();
-            if (favorites.includes(id)) {
-                favorites = favorites.filter(item => item !== id);
-                showToast('Eliminado de favoritos');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                iconDark.classList.remove('hidden');
+                iconLight.classList.add('hidden');
             } else {
-                favorites.push(id);
-                showToast('Guardado en favoritos', 'success');
-            }
-            localStorage.setItem('fav_botes_spain_v3', JSON.stringify(favorites));
-            updateFavBadges();
-            renderCards();
-        }
-
-        function updateFavBadges() {
-            document.querySelectorAll('.favCount').forEach(el => el.textContent = favorites.length);
-            const navBadge = document.getElementById('navFavBadge');
-            if (favorites.length > 0) {
-                navBadge.textContent = favorites.length;
-                navBadge.classList.remove('hidden');
-                navBadge.classList.add('flex');
-            } else {
-                navBadge.classList.add('hidden');
-                navBadge.classList.remove('flex');
+                body.classList.remove('light');
+                body.classList.add('dark');
+                iconDark.classList.add('hidden');
+                iconLight.classList.remove('hidden');
             }
         }
 
-        // Filter Functionality
+        // Sistema de Filtros
         function setFilter(filter) {
             currentFilter = filter;
-            
-            // Update Mobile Bottom Nav Active Style
-            document.querySelectorAll('.nav-item').forEach(btn => {
-                btn.className = 'nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-slate-400 hover:text-slate-200 transition-all';
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.className = 'filter-btn px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:bg-slate-700 flex items-center gap-1.5';
             });
-            const activeNav = document.getElementById(`nav-${filter}`);
-            if (activeNav) {
-                activeNav.className = 'nav-item flex flex-col items-center justify-center py-1.5 min-h-[48px] text-amber-400 font-bold transition-all';
+
+            const activeBtn = document.getElementById(`filter-${filter}`);
+            if (activeBtn) {
+                activeBtn.className = 'filter-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 flex items-center gap-1.5';
             }
 
-            // Update Desktop Nav Active Style
-            document.querySelectorAll('.filter-dt-btn').forEach(btn => {
-                btn.className = 'filter-dt-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800';
-            });
-            const activeDt = document.getElementById(`dt-filter-${filter}`);
-            if (activeDt) {
-                activeDt.className = 'filter-dt-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-amber-500 text-slate-950';
-            }
-
-            // Update Titles
-            const titles = {
-                'all': 'Todos los sorteos',
-                'selae': 'Loterías del Estado (SELAE)',
-                'once': 'Sorteos de la ONCE',
-                'fav': 'Tus Sorteos Favoritos'
-            };
-            document.getElementById('sectionTitle').innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span> ${titles[filter] || 'Sorteos'}`;
-
-            renderCards();
+            renderDraws();
         }
 
-        // Clear Search
-        function clearSearchInput() {
-            const input = document.getElementById('searchInput');
-            input.value = '';
-            document.getElementById('clearSearch').classList.add('hidden');
-            renderCards();
-        }
-
-        // Render Lottery Cards
-        function renderCards() {
-            const grid = document.getElementById('cardsGrid');
-            const emptyState = document.getElementById('emptyState');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
-            const clearBtn = document.getElementById('clearSearch');
-
-            if (searchVal) {
-                clearBtn.classList.remove('hidden');
-            } else {
-                clearBtn.classList.add('hidden');
-            }
-
+        // Renderizado de Tarjetas de Sorteos
+        function renderDraws() {
+            const grid = document.getElementById('drawsGrid');
             grid.innerHTML = '';
-            let list = [...lotteries];
 
-            // Apply filter
-            if (currentFilter === 'selae') list = list.filter(l => l.type === 'selae');
-            if (currentFilter === 'once') list = list.filter(l => l.type === 'once');
-            if (currentFilter === 'fav') list = list.filter(l => favorites.includes(l.id));
+            const filtered = DRAWS_DATA.filter(draw => {
+                if (currentFilter === 'selae') return draw.org === 'selae';
+                if (currentFilter === 'once') return draw.org === 'once';
+                if (currentFilter === 'favs') return favorites.includes(draw.id);
+                return true;
+            });
 
-            // Apply search filter
-            if (searchVal) {
-                list = list.filter(l => l.name.toLowerCase().includes(searchVal) || l.jackpotDisplay.toLowerCase().includes(searchVal));
-            }
-
-            document.getElementById('resultCounter').textContent = `${list.length} sorteo${list.length !== 1 ? 's' : ''}`;
-
-            if (list.length === 0) {
-                emptyState.classList.remove('hidden');
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-500 light:text-slate-400">
+                        <i data-lucide="star-off" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+                        <p class="text-base font-medium">No hay sorteos disponibles en esta sección.</p>
+                    </div>
+                `;
+                lucide.createIcons();
                 return;
-            } else {
-                emptyState.classList.add('hidden');
             }
 
-            list.forEach(item => {
-                const isFav = favorites.includes(item.id);
+            filtered.forEach(draw => {
+                const isFav = favorites.includes(draw.id);
                 const card = document.createElement('div');
-                card.className = `glass-card rounded-3xl p-4 transition-all duration-200 relative flex flex-col justify-between active:scale-[0.99] border border-slate-800`;
+                card.className = 'glass-card rounded-2xl p-5 relative flex flex-col justify-between overflow-hidden group hover:border-slate-700 light:hover:border-slate-300 transition-all shadow-lg';
 
                 card.innerHTML = `
                     <div>
-                        <!-- Card Top Bar -->
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${item.type === 'selae' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
-                                ${item.type === 'selae' ? '<i class="fa-solid fa-shield-halved"></i> SELAE' : '<i class="fa-solid fa-sun"></i> ONCE'}
-                            </span>
-                            <button onclick="toggleFavorite('${item.id}', event)" class="p-2 min-h-[40px] min-w-[40px] flex items-center justify-end text-base ${isFav ? 'text-amber-400' : 'text-slate-600 hover:text-slate-400'}" aria-label="Favorito">
-                                <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
+                        <!-- Header de Card -->
+                        <div class="flex items-start justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${draw.org === 'selae' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'}">
+                                    ${draw.org.toUpperCase()}
+                                </span>
+                                <span class="text-xs text-slate-400 light:text-slate-500">${draw.badge}</span>
+                            </div>
+                            <button onclick="toggleFavorite('${draw.id}')" class="text-slate-500 hover:text-amber-400 transition-colors p-1">
+                                <i data-lucide="star" class="w-5 h-5 ${isFav ? 'fill-amber-400 text-amber-400' : ''}"></i>
                             </button>
                         </div>
 
-                        <!-- Card Header Info -->
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br ${item.colorClass} flex items-center justify-center text-white text-lg font-bold shadow-md shrink-0">
-                                <i class="${item.icon}"></i>
-                            </div>
-                            <div class="overflow-hidden">
-                                <h4 class="text-sm font-extrabold text-white truncate">${item.name}</h4>
-                                <p class="text-[11px] text-slate-400 truncate"><i class="fa-regular fa-clock mr-1"></i>${item.drawSchedule}</p>
-                            </div>
-                        </div>
+                        <!-- Nombre del Sorteo -->
+                        <h3 class="text-xl font-bold text-white light:text-slate-900 group-hover:text-amber-400 transition-colors">${draw.name}</h3>
+                        <p class="text-xs text-slate-400 light:text-slate-500 mb-4 flex items-center gap-1 mt-1">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                            <span>${draw.date}</span>
+                        </p>
 
-                        <!-- Jackpot Box -->
-                        <div class="bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-center mb-3">
-                            <span class="text-[9px] uppercase font-bold text-slate-500 tracking-widest block">Premio Acumulado</span>
-                            <div class="text-xl font-black text-amber-400 tracking-tight mt-0.5">
-                                ${item.jackpotDisplay}
-                            </div>
-                            ${item.jackpotSubtext ? `<p class="text-[10px] text-slate-400 mt-0.5 leading-tight">${item.jackpotSubtext}</p>` : ''}
+                        <!-- Bote Acumulado -->
+                        <div class="bg-gradient-to-r ${draw.color} p-4 rounded-xl text-white shadow-inner mb-4">
+                            <span class="text-xs text-white/80 font-medium uppercase tracking-wider block mb-0.5">Bote Estimado</span>
+                            <div class="text-2xl font-black tracking-tight leading-tight">${draw.jackpot}</div>
                         </div>
                     </div>
 
-                    <!-- Card Quick Buttons -->
-                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80">
-                        <button onclick="openTaxModalWithAmount(${item.jackpotNumeric})" class="py-2.5 px-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[40px]">
-                            <i class="fa-solid fa-calculator text-sky-400"></i> Impuestos
-                        </button>
-                        <button onclick="openModalWithGenerator('${item.id}')" class="py-2.5 px-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[40px]">
-                            <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Suerte
+                    <!-- Botón Generador de Números (Sin botón de impuestos individual) -->
+                    <div class="pt-2">
+                        <button onclick="openGenerator('${draw.id}')" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 light:bg-slate-200 hover:bg-slate-700 light:hover:bg-slate-300 text-slate-200 light:text-slate-800 text-xs font-semibold flex items-center justify-center gap-2 transition-all border border-slate-700/50 light:border-slate-300">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                            <span>Generar Números de la Suerte</span>
                         </button>
                     </div>
                 `;
+
                 grid.appendChild(card);
             });
+
+            lucide.createIcons();
         }
 
-        // Hero Update Logic
-        function updateHero() {
-            const top = [...lotteries].sort((a,b) => b.jackpotNumeric - a.jackpotNumeric)[0];
-            if (!top) return;
-
-            document.getElementById('heroTitle').textContent = top.name;
-            document.getElementById('heroAmount').textContent = top.jackpotDisplay;
-            document.getElementById('heroDate').textContent = top.drawSchedule;
-            document.getElementById('heroTypeBadge').textContent = top.type.toUpperCase();
-
-            window.heroTargetDate = getNextDrawDate(top.nextDrawDayIndex, top.drawHours, top.drawMinutes);
+        // Alternar Favorito
+        function toggleFavorite(id) {
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(favId => favId !== id);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('fav_draws', JSON.stringify(favorites));
+            renderDraws();
         }
 
-        // Timer Loop
-        function startTimer() {
-            setInterval(() => {
-                if (window.heroTargetDate) {
-                    const diff = window.heroTargetDate - new Date();
-                    if (diff <= 0) {
-                        document.getElementById('heroCountdown').textContent = "¡Sorteo en curso!";
-                        return;
-                    }
-                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                    const m = Math.floor((diff / 1000 / 60) % 60);
-                    const s = Math.floor((diff / 1000) % 60);
+        // Generador de Números
+        function openGenerator(drawId) {
+            activeDrawForGen = DRAWS_DATA.find(d => d.id === drawId);
+            if (!activeDrawForGen) return;
 
-                    document.getElementById('heroCountdown').textContent = `${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
-                }
-            }, 1000);
-        }
-
-        // Refresh Data Simulation
-        function refreshData() {
-            const icon = document.getElementById('refreshIcon');
-            icon.classList.add('fa-spin');
-
-            setTimeout(() => {
-                icon.classList.remove('fa-spin');
-                renderCards();
-                updateHero();
-                showToast('Botes actualizados en vivo', 'success');
-            }, 500);
-        }
-
-        function resetApp() {
-            document.getElementById('searchInput').value = '';
-            setFilter('all');
-        }
-
-        // Theme Toggle (Dark / Light)
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('themeIcon');
+            document.getElementById('genTitle').innerText = activeDrawForGen.name;
+            document.getElementById('genSubtitle').innerText = `Números de la suerte para ${activeDrawForGen.name}`;
             
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                icon.className = 'fa-solid fa-sun text-amber-500';
-                localStorage.setItem('theme_preference', 'light');
-            } else {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                icon.className = 'fa-solid fa-moon text-amber-400';
-                localStorage.setItem('theme_preference', 'dark');
-            }
+            generateNumbers();
+            document.getElementById('generatorModal').classList.remove('hidden');
         }
 
-        // Modal Helpers
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
+        function closeGeneratorModal() {
+            document.getElementById('generatorModal').classList.add('hidden');
         }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
+        function generateNumbers() {
+            if (!activeDrawForGen) return;
 
-        // Tax Calculator
-        function openTaxModalWithAmount(amount) {
-            document.getElementById('taxInputAmount').value = amount;
-            calculateTax();
-            openModal('taxModal');
-        }
-
-        function calculateTax() {
-            const val = parseFloat(document.getElementById('taxInputAmount').value) || 0;
-            const exempt = Math.min(val, 40000);
-            const base = Math.max(0, val - 40000);
-            const tax = base * 0.20;
-            const net = val - tax;
-
-            document.getElementById('taxExempt').textContent = exempt.toLocaleString('es-ES') + ' €';
-            document.getElementById('taxBase').textContent = base.toLocaleString('es-ES') + ' €';
-            document.getElementById('taxAmount').textContent = '- ' + tax.toLocaleString('es-ES') + ' €';
-            document.getElementById('taxNet').textContent = net.toLocaleString('es-ES') + ' €';
-        }
-
-        // Random Combinations
-        function openModalWithGenerator(id) {
-            const select = document.getElementById('genLotterySelect');
-            if (['primitiva', 'bonoloto', 'euromillones', 'gordo', 'eurojackpot'].includes(id)) {
-                select.value = id === 'bonoloto' ? 'primitiva' : id;
-            } else {
-                select.value = 'euromillones';
-            }
-            generateRandomNumbers();
-            openModal('generatorModal');
-        }
-
-        function generateRandomNumbers() {
-            const type = document.getElementById('genLotterySelect').value;
-            const container = document.getElementById('genResultBalls');
+            const container = document.getElementById('genResultContainer');
             container.innerHTML = '';
 
-            let mainCount = 5, mainMax = 50, extraCount = 2, extraMax = 12;
+            const draw = activeDrawForGen;
 
-            if (type === 'primitiva') {
-                mainCount = 6; mainMax = 49; extraCount = 1; extraMax = 9;
-            } else if (type === 'gordo') {
-                mainCount = 5; mainMax = 54; extraCount = 1; extraMax = 9;
-            }
+            if (draw.isDigits) {
+                // Generar un número de 5 cifras (ej. Lotería Nacional, Cupones)
+                for (let i = 0; i < draw.pickMain; i++) {
+                    const digit = Math.floor(Math.random() * 10);
+                    const ball = document.createElement('div');
+                    ball.className = 'w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black flex items-center justify-center text-lg shadow-md';
+                    ball.innerText = digit;
+                    container.appendChild(ball);
+                }
+            } else {
+                // Números Principales
+                const mainNums = [];
+                while (mainNums.length < draw.pickMain) {
+                    const r = Math.floor(Math.random() * draw.maxMain) + 1;
+                    if (!mainNums.includes(r)) mainNums.push(r);
+                }
+                mainNums.sort((a, b) => a - b);
 
-            let mains = [];
-            while (mains.length < mainCount) {
-                let n = Math.floor(Math.random() * mainMax) + 1;
-                if (!mains.includes(n)) mains.push(n);
-            }
-            mains.sort((a,b) => a - b);
-
-            let extras = [];
-            while (extras.length < extraCount) {
-                let n = Math.floor(Math.random() * extraMax) + (type === 'primitiva' || type === 'gordo' ? 0 : 1);
-                if (!extras.includes(n)) extras.push(n);
-            }
-            extras.sort((a,b) => a - b);
-
-            mains.forEach(n => {
-                container.innerHTML += `<span class="w-9 h-9 rounded-full bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xs shadow-md">${n}</span>`;
-            });
-
-            if (extras.length > 0) {
-                container.innerHTML += `<span class="text-slate-500 font-bold px-1 text-xs">+</span>`;
-                extras.forEach(n => {
-                    container.innerHTML += `<span class="w-9 h-9 rounded-full bg-sky-600 text-white font-black flex items-center justify-center text-xs shadow-md border border-sky-400">${n}</span>`;
+                mainNums.forEach(num => {
+                    const ball = document.createElement('div');
+                    ball.className = 'w-10 h-10 rounded-full bg-slate-700 light:bg-slate-300 text-white light:text-slate-900 font-bold flex items-center justify-center text-sm shadow';
+                    ball.innerText = num;
+                    container.appendChild(ball);
                 });
+
+                // Números Extra / Estrellas / Reintegros
+                if (draw.pickExtra) {
+                    const extraNums = [];
+                    while (extraNums.length < draw.pickExtra) {
+                        const r = Math.floor(Math.random() * draw.maxExtra) + 1;
+                        if (!extraNums.includes(r)) extraNums.push(r);
+                    }
+                    extraNums.sort((a, b) => a - b);
+
+                    extraNums.forEach(num => {
+                        const starBall = document.createElement('div');
+                        starBall.className = 'w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black flex items-center justify-center text-sm shadow-md border-2 border-amber-200';
+                        starBall.innerText = num;
+                        container.appendChild(starBall);
+                    });
+                }
             }
         }
 
-        function copyGeneratedNumbers() {
-            const text = Array.from(document.querySelectorAll('#genResultBalls span'))
-                             .map(s => s.textContent).join(' ');
-            
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-
-            showToast('Combinación copiada', 'success');
+        // Calculadora de Hacienda (Impuestos)
+        function openTaxModal(amount = null) {
+            const input = document.getElementById('taxInputAmount');
+            if (amount !== null) {
+                input.value = amount;
+            }
+            calculateTaxes();
+            document.getElementById('taxModal').classList.remove('hidden');
         }
 
-        // Initialize App on Load
-        window.onload = function() {
-            // Apply theme preference
-            const savedTheme = localStorage.getItem('theme_preference');
-            if (savedTheme === 'light') {
-                document.documentElement.classList.remove('dark');
-                document.documentElement.classList.add('light');
-                document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-500';
+        function closeTaxModal() {
+            document.getElementById('taxModal').classList.add('hidden');
+        }
+
+        function setTaxPreset(amount) {
+            document.getElementById('taxInputAmount').value = amount;
+            calculateTaxes();
+        }
+
+        function initTaxCalculator() {
+            const input = document.getElementById('taxInputAmount');
+            input.addEventListener('input', calculateTaxes);
+        }
+
+        function calculateTaxes() {
+            const amount = parseFloat(document.getElementById('taxInputAmount').value) || 0;
+            const EXEMPT_AMOUNT = 40000;
+            const TAX_RATE = 0.20;
+
+            let taxable = 0;
+            let taxRetained = 0;
+            let netAmount = amount;
+
+            if (amount > EXEMPT_AMOUNT) {
+                taxable = amount - EXEMPT_AMOUNT;
+                taxRetained = taxable * TAX_RATE;
+                netAmount = amount - taxRetained;
             }
 
-            updateFavBadges();
-            renderCards();
-            updateHero();
-            startTimer();
-            calculateTax();
-            generateRandomNumbers();
-        };
+            document.getElementById('taxableAmount').innerText = taxable.toLocaleString('es-ES') + ' €';
+            document.getElementById('taxRetained').innerText = '- ' + taxRetained.toLocaleString('es-ES') + ' €';
+            document.getElementById('taxNetTotal').innerText = netAmount.toLocaleString('es-ES') + ' €';
+        }
     </script>
 </body>
 </html>
